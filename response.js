@@ -1,5 +1,5 @@
 // declare constants
-const DEFAULT_SIZE = 16;
+const DEFAULT_SIZE = 20;
 const DEFAULT_COLOR = '#333333';
 const DEFAULT_MODE = 'color';
 
@@ -19,17 +19,19 @@ const colorChoice = document.getElementById('colorChoice');
 
 // events that give interactivity
 colorChoice.oninput = (e) => setColor(e.target.value);
-slider.onchange = (e) => setSize(e.target.value);
-slider.onmousemove = (e) => changeSize(e.target.value);
+slider.onmousemove = (e) => updateSize(e.target.value);
+slider.onchange = (e) => shiftSize(e.target.value);
 resetButton.onclick = () => resetGrid();
 rainbowButton.onclick = () => setMode('rainbow');
 eraserButton.onclick = () => setMode('eraser');
 colorButton.onclick = () => setMode('color');
 
+// maps mouse presses
 let mouseDown = false;
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false);
 
+// set of functions that adjust grid size/updating/mode
 function setSize(newSize) {
     currentSize = newSize;
 }
@@ -45,8 +47,12 @@ function setColor(newColor) {
 
 function shiftSize(number) {
     setSize(number);
-    setSizeValue(number);
+    updateSize(number);
     resetGrid();
+}
+
+function updateSize(number) {
+    sizeValue.innerHTML = `${number} x ${number}`
 }
 
 function resetGrid() {
@@ -69,12 +75,12 @@ function initGrid(size) {
 }
 
 // adjusts how the divs are colored based on user selection
-function changeColor {
+function changeColor(e) {
     if (e.type === 'mouseover' && !mouseDown) return;
     if (currentMode === 'rainbow') {
-        const r = Math.floor(Math.random * 256);
-        const g = Math.floor(Math.random * 256);
-        const b = Math.floor(Math.random * 256);
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
         e.target.style.backgroundColor = `rgb(${r},${g},${b})`;
     } else if (currentMode === 'color' ) {
         e.target.style.backgroundColor = currentColor;
@@ -84,6 +90,7 @@ function changeColor {
 
 }
 
+// adjusts styles of button that is clicked
 function triggerButton(newMode) {
     if (currentMode === 'rainbow') {
         rainbowButton.classList.remove('active');
@@ -102,6 +109,7 @@ function triggerButton(newMode) {
     }
 }
 
+// initializes buttons and grid when page is loaded
 window.onload = () => {
     initGrid(DEFAULT_SIZE);
     activateButton(DEFAULT_MODE);

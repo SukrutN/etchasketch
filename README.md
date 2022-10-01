@@ -1,1 +1,1 @@
-An Etch-A-Sketch project made in vanilla javascript
+An Etch-A-Sketch project made in vanilla javascript!
