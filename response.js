@@ -43,6 +43,16 @@ function setColor(newColor) {
     currentColor = newColor;
 }
 
+function shiftSize(number) {
+    setSize(number);
+    setSizeValue(number);
+    resetGrid();
+}
+
+function resetGrid() {
+    grid.innerHTML = ''
+    initGrid(currentSize);
+}
 
 // initializes grid w/ event listeners
 function initGrid(size) {
@@ -74,5 +84,25 @@ function changeColor {
 
 }
 
+function triggerButton(newMode) {
+    if (currentMode === 'rainbow') {
+        rainbowButton.classList.remove('active');
+    } else if (currentMode === 'color') {
+        colorButton.classList.remove('active');
+    } else if (currentMode === 'eraser') {
+        eraserButton.classList.remove('active');
+    }
 
+    if (newMode === 'rainbow') {
+        rainbowButton.classList.add('active');
+    } else if (newMode === 'color') {
+        colorButton.classList.add('active');
+    } else if (newMode === 'eraser') {
+        eraserButton.classList.add('active');
+    }
+}
 
+window.onload = () => {
+    initGrid(DEFAULT_SIZE);
+    activateButton(DEFAULT_MODE);
+}
