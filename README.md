@@ -1,1 +1,1 @@
-A Pixel-Paint project made in vanilla javascript!
+A Pixel-Paint project made in vanilla javascript that shows DOM manipulation!

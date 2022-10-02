@@ -1,6 +1,6 @@
 // declare constants
 const DEFAULT_SIZE = 20;
-const DEFAULT_COLOR = '#333333';
+const DEFAULT_COLOR = '#FFD580';
 const DEFAULT_MODE = 'color';
 
 let currentColor = DEFAULT_COLOR;
